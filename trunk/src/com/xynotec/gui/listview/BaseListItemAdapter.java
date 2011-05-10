@@ -1,4 +1,4 @@
-package com.xynotec.gui;
+package com.xynotec.gui.listview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,9 +20,9 @@ import com.xynotec.gui.listview.ThickDivider;
 import com.xynotec.gui.listview.ThinDivider;
 
 
-public class ListItemAdapter extends BaseAdapter
+public class BaseListItemAdapter extends BaseAdapter
 {
-	public ListItemAdapter(Context context1)
+	public BaseListItemAdapter(Context context1)
     {
         context = context1;
         viewInflater = (LayoutInflater)getContext().getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);        

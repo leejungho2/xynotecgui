@@ -68,6 +68,7 @@ public abstract class AsyncPosterGallery extends HorizontalScrollView
       this.container.removeViewAt(i2);
       this.container.addView(localView, i2);
       int i3 = this.posterItemsDisplayed;
+      i3++;
       this.posterItemsDisplayed = i3;
     }   
   }

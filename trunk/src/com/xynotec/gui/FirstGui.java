@@ -4,8 +4,10 @@ import com.xynotec.gui.listview.AbstractExListActivity;
 import com.xynotec.gui.listview.BaseListItemAdapter;
 import com.xynotec.gui.listview.BoldLinkItem;
 import com.xynotec.gui.listview.EmptyDivider;
+import com.xynotec.gui.listview.GenericViewItem;
 import com.xynotec.gui.listview.HeaderLinkItem;
 import com.xynotec.gui.listview.IconLinkItem;
+import com.xynotec.gui.listview.ImageTextGallery;
 import com.xynotec.gui.listview.LabelTextItem;
 import com.xynotec.gui.listview.LinkItem;
 import com.xynotec.gui.listview.SectionHeader;
@@ -15,6 +17,7 @@ import com.xynotec.gui.listview.ThinDivider;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 public class FirstGui extends AbstractExListActivity {
     /** Called when the activity is first created. */
@@ -25,6 +28,13 @@ public class FirstGui extends AbstractExListActivity {
         
         HomeListAdapter localHomeListAdapter = new HomeListAdapter(FirstGui.this);
         
+        ItemPosterGalley itemPosterList1 = new ItemPosterGalley(FirstGui.this);
+		localHomeListAdapter.addToList(itemPosterList1);		
+		
+		ItemPosterGalley itemPosterList2 = new ItemPosterGalley(FirstGui.this);
+		localHomeListAdapter.addToList(itemPosterList2);
+		
+        /*
         BoldLinkItem blItem = new BoldLinkItem("BoldLinkItem", "BoldLinkItemEx", null);
         EmptyDivider eDiv = new EmptyDivider();  
         HeaderLinkItem hlItem = new HeaderLinkItem();
@@ -44,6 +54,7 @@ public class FirstGui extends AbstractExListActivity {
         localHomeListAdapter.addToList(sHeader);
         localHomeListAdapter.addToList(thickDiv);
         localHomeListAdapter.addToList(thinDiv);
+        */
         
         setListAdapter(localHomeListAdapter);
         
@@ -66,4 +77,23 @@ public class FirstGui extends AbstractExListActivity {
         return false;
       }
     }
+    
+    public class ItemPosterGalley extends GenericViewItem
+    {
+
+        public View getView()
+        {
+            return new ImageTextGallery(firstGui);
+        }
+
+        final FirstGui firstGui;
+
+        ItemPosterGalley(FirstGui param)
+        {
+        	firstGui = param;
+            
+        }
+    }
+    
+
 }

@@ -3,7 +3,9 @@ package com.xynotec.gui.listview;
 import android.content.Context;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public abstract class AsyncPosterGallery extends HorizontalScrollView
   //implements ClientDelegate
@@ -25,17 +27,19 @@ public abstract class AsyncPosterGallery extends HorizontalScrollView
 
   protected void initializeGallery()
   {	  
+	  
   }
 
+  /*
   	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt)
 	{
 		// TODO Auto-generated method stub
 		super.onScrollChanged(l, t, oldl, oldt);
 	}
+  	*/
   	
-  	
-  /*
+  
   protected void onScrollChanged(int paramInt1, int paramInt2, int paramInt3, int paramInt4)
   {
     super.onScrollChanged(paramInt1, paramInt2, paramInt3, paramInt4);
@@ -67,8 +71,7 @@ public abstract class AsyncPosterGallery extends HorizontalScrollView
       this.posterItemsDisplayed = i3;
     }   
   }
- */
-  	
+   	
   protected void setAdapter(BaseListItemAdapter var1) {
       byte var2 = 25;
       this.galleryAdapter = var1;
@@ -139,11 +142,54 @@ public abstract class AsyncPosterGallery extends HorizontalScrollView
     {
       super();
     }
+    
+    int imageId;
+    String text;
+    
+    public void setText(String s)
+    {
+    	text = s;    	
+    }
+    
+    public void setImage(int resId)
+    {
+    	imageId = resId;
+    }
 
     public int getListElementLayoutId()
     {
       return com.xynotec.gui.R.layout.image_text_gallery_item;
     } 
+    
+    protected void applyToView(Context context, ClickableRelativeLayout clickablerelativelayout)
+    {
+    	setImage(clickablerelativelayout);
+    	setText(clickablerelativelayout);
+    }
+    
+    
+    protected void setImage(ClickableRelativeLayout clickablerelativelayout)
+    {
+    	ImageView localImageView = (ImageView)clickablerelativelayout.findViewById(com.xynotec.gui.R.id.image);
+    	if (localImageView != null)
+    		localImageView.setImageResource(com.xynotec.gui.R.drawable.image_gallery);
+    }
+
+    protected void setText(ClickableRelativeLayout clickablerelativelayout)
+    {
+        TextView textview = (TextView)clickablerelativelayout.findViewById(com.xynotec.gui.R.id.text);
+        if(textview != null)
+        {
+            if(text != null)
+            {
+                textview.setText(text);
+                textview.setVisibility(View.VISIBLE);
+            } else
+            {
+                textview.setVisibility(View.GONE);
+            }
+        }
+    }
   }
   
 }

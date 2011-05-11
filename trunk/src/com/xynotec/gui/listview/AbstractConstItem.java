@@ -25,28 +25,7 @@ public abstract class AbstractConstItem implements BaseListItem
         return true;
     }
 
-    public void setImage(ClickableRelativeLayout clickablerelativelayout)
-    {
-    	ImageView localImageView = (ImageView)clickablerelativelayout.findViewById(com.xynotec.gui.R.id.image);
-    	if (localImageView != null)
-    		localImageView.setImageResource(com.xynotec.gui.R.drawable.image_gallery);
-    }
-
-    public void setText(String s, ClickableRelativeLayout clickablerelativelayout)
-    {
-        TextView textview = (TextView)clickablerelativelayout.findViewById(com.xynotec.gui.R.id.text);
-        if(textview != null)
-        {
-            if(s != null)
-            {
-                textview.setText(s);
-                textview.setVisibility(View.VISIBLE);
-            } else
-            {
-                textview.setVisibility(View.GONE);
-            }
-        }
-    }
+    protected abstract void applyToView(Context context, ClickableRelativeLayout clickablerelativelayout);
 
     @Override
     public View getViewForListElement(LayoutInflater paramLayoutInflater,
@@ -63,6 +42,8 @@ public abstract class AbstractConstItem implements BaseListItem
         {
             clickablerelativelayout = (ClickableRelativeLayout)paramView;
         }
+        
+        applyToView(paramContext, clickablerelativelayout);
         return clickablerelativelayout;
     }
 

@@ -28,9 +28,15 @@ public class FirstGui extends AbstractExListActivity {
         
         HomeListAdapter localHomeListAdapter = new HomeListAdapter(FirstGui.this);
         
+        SectionHeader sHeader1 = new SectionHeader("News 1");
+        localHomeListAdapter.addToList(sHeader1);
+        
         ItemPosterGalley itemPosterList1 = new ItemPosterGalley(FirstGui.this);
 		localHomeListAdapter.addToList(itemPosterList1);		
 		
+		SectionHeader sHeader2 = new SectionHeader("News 2");
+        localHomeListAdapter.addToList(sHeader2);
+        
 		ItemPosterGalley itemPosterList2 = new ItemPosterGalley(FirstGui.this);
 		localHomeListAdapter.addToList(itemPosterList2);
 		

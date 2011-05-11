@@ -22,7 +22,8 @@ public abstract class AbstractExListActivity extends ListActivity
 
   public int getLayoutType()
   {
-    return 0;
+	  return com.xynotec.gui.R.layout.generic_text_list;
+
   }
 
   public String getPageTitle()

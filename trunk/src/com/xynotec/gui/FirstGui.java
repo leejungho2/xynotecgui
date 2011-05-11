@@ -3,7 +3,7 @@ package com.xynotec.gui;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class FirstGui extends Activity {
+public class FirstGui extends AbstractExListActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {

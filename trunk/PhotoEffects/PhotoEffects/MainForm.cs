@@ -25,15 +25,6 @@ namespace PhotoEffects
             basicEffect = new ImageEffect.ApplyBasicEffect(m_Bitmap);
         }
 
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            if (m_Bitmap != null)
-            {
-                Graphics g = e.Graphics;
-                g.DrawImage(m_Bitmap, new Rectangle(this.AutoScrollPosition.X, this.AutoScrollPosition.Y, (int)(m_Bitmap.Width * Zoom), (int)(m_Bitmap.Height * Zoom)));
-            }            
-        }
-
         private void menuMain_Click(object sender, EventArgs e)
         {
             if (sender == mnu_File_Open)
@@ -92,9 +83,7 @@ namespace PhotoEffects
             if (DialogResult.OK == openFileDialog.ShowDialog())
             {
                 m_Bitmap = (Bitmap)Bitmap.FromFile(openFileDialog.FileName, false);
-                this.AutoScroll = true;
-                this.AutoScrollMinSize = new Size((int)(m_Bitmap.Width * Zoom), (int)(m_Bitmap.Height * Zoom));
-                this.Invalidate();
+                this.panel_Canvas.Invalidate();
             }
         }
 
@@ -140,7 +129,7 @@ namespace PhotoEffects
             Bitmap temp = (Bitmap)m_Bitmap.Clone();
             m_Bitmap = (Bitmap)m_Undo.Clone();
             m_Undo = (Bitmap)temp.Clone();
-            this.Invalidate();
+            this.panel_Canvas.Invalidate();
         }
 
         private void BasicEffects_ColorFilter()
@@ -150,7 +139,7 @@ namespace PhotoEffects
             basicEffect.SetImage(m_Bitmap);
             basicEffect.ApplyColorFilter(Color_Filter.Color_Green);
 
-            this.Invalidate();
+            this.panel_Canvas.Invalidate();
         }
         
         private void BasicEffects_Gamma()
@@ -161,7 +150,7 @@ namespace PhotoEffects
             //value 0->1
             basicEffect.ApplyGamma(0.5, 0.5, 0.5);
 
-            this.Invalidate();
+            this.panel_Canvas.Invalidate();
         }
         
         private void BasicEffects_Brightness()
@@ -172,7 +161,7 @@ namespace PhotoEffects
             //value -255->255
             basicEffect.ApplyBrightness(-100);
 
-            this.Invalidate();
+            this.panel_Canvas.Invalidate();
         }
                 
         private void BasicEffects_Contrast()
@@ -183,7 +172,7 @@ namespace PhotoEffects
             //value -100->100
             basicEffect.ApplyContrast(-50);
 
-            this.Invalidate();
+            this.panel_Canvas.Invalidate();
         }
             
         private void BasicEffects_GrayScale()
@@ -193,7 +182,7 @@ namespace PhotoEffects
             basicEffect.SetImage(m_Bitmap);
             basicEffect.ApplyGrayscale();
 
-            this.Invalidate();
+            this.panel_Canvas.Invalidate();
         }
 
         private void BasicEffects_Invert()
@@ -203,11 +192,20 @@ namespace PhotoEffects
             basicEffect.SetImage(m_Bitmap);
             basicEffect.ApplyInvert();
 
-            this.Invalidate();
+            this.panel_Canvas.Invalidate();
 
         }
 
 #endregion
+
+        private void panel_Canvas_Paint(object sender, PaintEventArgs e)
+        {
+            if (m_Bitmap != null)
+            {
+                Graphics g = e.Graphics;
+                g.DrawImage(m_Bitmap, new Rectangle(0, 0, (int)(m_Bitmap.Width * Zoom), (int)(m_Bitmap.Height * Zoom)));
+            }  
+        }
 
   
     }

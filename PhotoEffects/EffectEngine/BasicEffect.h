@@ -4,7 +4,10 @@
 #include "typedef.h"
 //////////////////////////////////////////////////////////////////////////
 // At first, bitmap data is 32bits with format ARGB
+//					byte 0 | byte 1 | byte 2 | byte 3
+//Windows format	   B	   G	     R	     A	
 //////////////////////////////////////////////////////////////////////////
+#define INVERT_RED
 
 byte* CreateGamma(double color);
 //////////////////////////////////////////////////////////////////////////
@@ -15,26 +18,26 @@ byte* CreateGamma(double color);
 //////////////////////////////////////////////////////////////////////////
 //COLOR_FILTER filter	color filter
 //////////////////////////////////////////////////////////////////////////
-void ColorFilter(BMP_ARGB *data, int width, int height, COLOR_FILTER filter);
+void AFX_EXT_API ColorFilter(BMP_ARGB *data, int width, int height, COLOR_FILTER filter);
 
 //////////////////////////////////////////////////////////////////////////
 //double red, green, blue:			value 0->1
 //////////////////////////////////////////////////////////////////////////
-void Gamma(BMP_ARGB *data, int width, int height, double red, double green, double blue);
+void AFX_EXT_API Gamma(BMP_ARGB *data, int width, int height, double red, double green, double blue);
 
 //////////////////////////////////////////////////////////////////////////
 //int brightness					value -255->255
 //////////////////////////////////////////////////////////////////////////
-void Brightness(BMP_ARGB *data, int width, int height, int brightness);
+void AFX_EXT_API Brightness(BMP_ARGB *data, int width, int height, int brightness);
 
 //////////////////////////////////////////////////////////////////////////
 //double contrast					value -100->100
 //////////////////////////////////////////////////////////////////////////
-void Contrast(BMP_ARGB *data, int width, int height, double contrast);
+void AFX_EXT_API Contrast(BMP_ARGB *data, int width, int height, double contrast);
 
-void Grayscale(BMP_ARGB *data, int width, int height);
+void AFX_EXT_API Grayscale(BMP_ARGB *data, int width, int height);
 
-void Invert(BMP_ARGB *data, int width, int height);
+void AFX_EXT_API Invert(BMP_ARGB *data, int width, int height);
 
 
 

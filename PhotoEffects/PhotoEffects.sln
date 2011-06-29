@@ -6,6 +6,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EffectEngine", "EffectEngine\EffectEngine.vcproj", "{52111FC5-31BE-4ACE-B122-4F9066931225}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageEffect", "ImageEffect\ImageEffect.vcproj", "{0EAAF77B-60D8-45B9-9124-E7C1059EAC37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{52111FC5-31BE-4ACE-B122-4F9066931225} = {52111FC5-31BE-4ACE-B122-4F9066931225}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

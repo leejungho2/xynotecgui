@@ -3,24 +3,37 @@
 #pragma once
 
 using namespace System;
+using namespace System::Drawing;
 
-//#include "BasicEffect.h"
+#include "BasicEffect.h"
 namespace ImageEffect {
 
-	public ref class ApplyImageEffect
+	public enum class Color_Filter
+	{
+		Color_Red = COLOR_RED,
+		Color_Green = COLOR_GREEN,
+		Color_Blue = COLOR_BLUE
+	};
+
+	public ref class ApplyBasicEffect
 	{
 		// TODO: Add your methods for this class here.
 		public:
-			System::Drawing::Image^ mImg;
+			ApplyBasicEffect(System::Drawing::Bitmap^ img);	
 
-			ApplyImageEffect(System::Drawing::Image^ img);	
+			void SetImage(System::Drawing::Bitmap^ img);
 
-			void ApplyColorFilter(/*COLOR_FILTER filter*/);
+			void ApplyColorFilter(Color_Filter filter);
 			void ApplyGamma(double red, double green, double blue);
 			void ApplyBrightness(int brightness);
 			void ApplyContrast(double contrast);
 			void ApplyGrayscale();
 			void ApplyInvert();
+
+		private:
+			System::Drawing::Bitmap^ mImg;
+			int imgWidth;
+			int imgHeight;
 		
 	};
 }

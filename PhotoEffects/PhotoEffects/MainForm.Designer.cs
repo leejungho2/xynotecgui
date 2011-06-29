@@ -43,6 +43,7 @@
             this.mnu_BasicEffects_Contrast = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_BasicEffects_GrayScale = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_BasicEffects_Invert = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel_Canvas = new System.Windows.Forms.Panel();
             this.menuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,26 +73,26 @@
             // mnu_File_Open
             // 
             this.mnu_File_Open.Name = "mnu_File_Open";
-            this.mnu_File_Open.Size = new System.Drawing.Size(152, 22);
+            this.mnu_File_Open.Size = new System.Drawing.Size(111, 22);
             this.mnu_File_Open.Text = "Open";
             this.mnu_File_Open.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_File_Save
             // 
             this.mnu_File_Save.Name = "mnu_File_Save";
-            this.mnu_File_Save.Size = new System.Drawing.Size(152, 22);
+            this.mnu_File_Save.Size = new System.Drawing.Size(111, 22);
             this.mnu_File_Save.Text = "Save";
             this.mnu_File_Save.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(108, 6);
             // 
             // mnu_File_Exit
             // 
             this.mnu_File_Exit.Name = "mnu_File_Exit";
-            this.mnu_File_Exit.Size = new System.Drawing.Size(152, 22);
+            this.mnu_File_Exit.Size = new System.Drawing.Size(111, 22);
             this.mnu_File_Exit.Text = "Exit";
             this.mnu_File_Exit.Click += new System.EventHandler(this.menuMain_Click);
             // 
@@ -106,7 +107,7 @@
             // mnu_Edit_Undo
             // 
             this.mnu_Edit_Undo.Name = "mnu_Edit_Undo";
-            this.mnu_Edit_Undo.Size = new System.Drawing.Size(152, 22);
+            this.mnu_Edit_Undo.Size = new System.Drawing.Size(110, 22);
             this.mnu_Edit_Undo.Text = "Undo";
             this.mnu_Edit_Undo.Click += new System.EventHandler(this.menuMain_Click);
             // 
@@ -126,44 +127,54 @@
             // mnu_BasicEffects_ColorFilter
             // 
             this.mnu_BasicEffects_ColorFilter.Name = "mnu_BasicEffects_ColorFilter";
-            this.mnu_BasicEffects_ColorFilter.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_ColorFilter.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_ColorFilter.Text = "Color Filter";
             this.mnu_BasicEffects_ColorFilter.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Gamma
             // 
             this.mnu_BasicEffects_Gamma.Name = "mnu_BasicEffects_Gamma";
-            this.mnu_BasicEffects_Gamma.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_Gamma.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_Gamma.Text = "Gamma";
             this.mnu_BasicEffects_Gamma.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Brightness
             // 
             this.mnu_BasicEffects_Brightness.Name = "mnu_BasicEffects_Brightness";
-            this.mnu_BasicEffects_Brightness.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_Brightness.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_Brightness.Text = "Brightness";
             this.mnu_BasicEffects_Brightness.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Contrast
             // 
             this.mnu_BasicEffects_Contrast.Name = "mnu_BasicEffects_Contrast";
-            this.mnu_BasicEffects_Contrast.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_Contrast.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_Contrast.Text = "Contrast";
             this.mnu_BasicEffects_Contrast.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_GrayScale
             // 
             this.mnu_BasicEffects_GrayScale.Name = "mnu_BasicEffects_GrayScale";
-            this.mnu_BasicEffects_GrayScale.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_GrayScale.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_GrayScale.Text = "Grayscale";
             this.mnu_BasicEffects_GrayScale.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Invert
             // 
             this.mnu_BasicEffects_Invert.Name = "mnu_BasicEffects_Invert";
-            this.mnu_BasicEffects_Invert.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_Invert.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_Invert.Text = "Invert";
             this.mnu_BasicEffects_Invert.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // panel_Canvas
+            // 
+            this.panel_Canvas.AutoScroll = true;
+            this.panel_Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_Canvas.Location = new System.Drawing.Point(0, 24);
+            this.panel_Canvas.Name = "panel_Canvas";
+            this.panel_Canvas.Size = new System.Drawing.Size(646, 360);
+            this.panel_Canvas.TabIndex = 1;
+            this.panel_Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Canvas_Paint);
             // 
             // MainForm
             // 
@@ -171,12 +182,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(646, 384);
+            this.Controls.Add(this.panel_Canvas);
             this.Controls.Add(this.menuMain);
             this.MainMenuStrip = this.menuMain;
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.menuMain.ResumeLayout(false);
             this.menuMain.PerformLayout();
             this.ResumeLayout(false);
@@ -201,6 +212,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnu_BasicEffects_Contrast;
         private System.Windows.Forms.ToolStripMenuItem mnu_BasicEffects_GrayScale;
         private System.Windows.Forms.ToolStripMenuItem mnu_BasicEffects_Invert;
+        private System.Windows.Forms.Panel panel_Canvas;
     }
 }
 

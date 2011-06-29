@@ -1,6 +1,0 @@
-; EffectEngine.def : Declares the module parameters for the DLL.
-
-LIBRARY      "EffectEngine"
-
-EXPORTS
-    ; Explicit exports can go here

@@ -269,3 +269,131 @@ void Invert(BMP_ARGB *data, int width, int height)
 		}
 	}
 }
+
+void Conv3x3(BMP_ARGB *data, int width, int height, ConvMatrix* m)
+{
+	// Avoid divide by zero errors
+	if (0 == m->Factor) 
+		return;
+
+	int nPixel;
+	int stride = width * 4;//4 bytes per pixel
+	int stride2 = stride * 2;
+
+	BMP_ARGB* cloneData = new BMP_ARGB[width*height];
+	memcpy(cloneData, data, width*height*sizeof(BMP_ARGB));
+
+	byte * p = (byte *)data;
+	byte* pSrc = (byte*)cloneData; 	
+	
+	int nWidth = width - 2;
+	int nHeight = height - 2;
+
+	for(int y=0;y < nHeight;++y)
+	{
+		for(int x=0; x < nWidth; ++x )
+		{
+			/*
+			nPixel = ( ( ( (pSrc[2] * m->TopLeft) + (pSrc[5] * m->TopMid) + (pSrc[8] * m->TopRight) +
+				(pSrc[2 + stride] * m->MidLeft) + (pSrc[5 + stride] * m->Pixel) + (pSrc[8 + stride] * m->MidRight) +
+				(pSrc[2 + stride2] * m->BottomLeft) + (pSrc[5 + stride2] * m->BottomMid) + (pSrc[8 + stride2] * m->BottomRight)) / m->Factor) + m->Offset); 
+
+			if (nPixel < 0) nPixel = 0;
+			if (nPixel > 255) nPixel = 255;
+
+			p[5 + stride]= (byte)nPixel;
+
+			nPixel = ( ( ( (pSrc[1] * m->TopLeft) + (pSrc[4] * m->TopMid) + (pSrc[7] * m->TopRight) +
+				(pSrc[1 + stride] * m->MidLeft) + (pSrc[4 + stride] * m->Pixel) + (pSrc[7 + stride] * m->MidRight) +
+				(pSrc[1 + stride2] * m->BottomLeft) + (pSrc[4 + stride2] * m->BottomMid) + (pSrc[7 + stride2] * m->BottomRight)) / m->Factor) + m->Offset); 
+
+			if (nPixel < 0) nPixel = 0;
+			if (nPixel > 255) nPixel = 255;
+
+			p[4 + stride] = (byte)nPixel;
+
+			nPixel = ( ( ( (pSrc[0] * m->TopLeft) + (pSrc[3] * m->TopMid) + (pSrc[6] * m->TopRight) +
+				(pSrc[0 + stride] * m->MidLeft) + (pSrc[3 + stride] * m->Pixel) + (pSrc[6 + stride] * m->MidRight) +
+				(pSrc[0 + stride2] * m->BottomLeft) + (pSrc[3 + stride2] * m->BottomMid) + (pSrc[6 + stride2] * m->BottomRight)) / m->Factor) + m->Offset); 
+
+			if (nPixel < 0) nPixel = 0;
+			if (nPixel > 255) nPixel = 255;
+
+			p[3 + stride] = (byte)nPixel;
+			*/
+
+			nPixel = ( ( ( (pSrc[2] * m->TopLeft) + (pSrc[6] * m->TopMid) + (pSrc[10] * m->TopRight) +
+				(pSrc[2 + stride] * m->MidLeft) + (pSrc[6 + stride] * m->Pixel) + (pSrc[10 + stride] * m->MidRight) +
+				(pSrc[2 + stride2] * m->BottomLeft) + (pSrc[6 + stride2] * m->BottomMid) + (pSrc[10 + stride2] * m->BottomRight)) / m->Factor) + m->Offset); 
+
+			if (nPixel < 0) nPixel = 0;
+			if (nPixel > 255) nPixel = 255;
+
+			p[6 + stride]= (byte)nPixel;
+
+			nPixel = ( ( ( (pSrc[1] * m->TopLeft) + (pSrc[5] * m->TopMid) + (pSrc[9] * m->TopRight) +
+				(pSrc[1 + stride] * m->MidLeft) + (pSrc[5 + stride] * m->Pixel) + (pSrc[9 + stride] * m->MidRight) +
+				(pSrc[1 + stride2] * m->BottomLeft) + (pSrc[5 + stride2] * m->BottomMid) + (pSrc[9 + stride2] * m->BottomRight)) / m->Factor) + m->Offset); 
+
+			if (nPixel < 0) nPixel = 0;
+			if (nPixel > 255) nPixel = 255;
+
+			p[5 + stride] = (byte)nPixel;
+
+			nPixel = ( ( ( (pSrc[0] * m->TopLeft) + (pSrc[4] * m->TopMid) + (pSrc[8] * m->TopRight) +
+				(pSrc[0 + stride] * m->MidLeft) + (pSrc[4 + stride] * m->Pixel) + (pSrc[8 + stride] * m->MidRight) +
+				(pSrc[0 + stride2] * m->BottomLeft) + (pSrc[4 + stride2] * m->BottomMid) + (pSrc[8 + stride2] * m->BottomRight)) / m->Factor) + m->Offset); 
+
+			if (nPixel < 0) nPixel = 0;
+			if (nPixel > 255) nPixel = 255;
+
+			p[4 + stride] = (byte)nPixel;
+
+			p += 4;
+			pSrc += 4;
+		}
+	}
+
+	if (cloneData)
+	{
+		delete[] cloneData;
+		cloneData = NULL;
+	}
+	
+}
+
+void Smooth(BMP_ARGB *data, int width, int height, int nWeight /* default to 1 */)
+{
+	ConvMatrix* m = new ConvMatrix();
+	m->SetAll(1);
+	m->Pixel = nWeight;
+	m->Factor = nWeight + 8;
+
+	Conv3x3(data, width, height, m);
+
+	if (m)
+	{
+		delete m;
+		m = NULL;
+	}
+}
+
+void GaussianBlur(BMP_ARGB *data, int width, int height, int nWeight /* default to 4*/)
+{
+
+}
+
+void MeanRemoval(BMP_ARGB *data, int width, int height, int nWeight /* default to 9*/ )
+{
+
+}
+
+void Sharpen(BMP_ARGB *data, int width, int height, int nWeight /* default to 11*/ )
+{
+
+}
+
+void EmbossLaplacian(BMP_ARGB *data, int width, int height)
+{
+
+}

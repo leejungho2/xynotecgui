@@ -9,6 +9,30 @@
 //////////////////////////////////////////////////////////////////////////
 #define INVERT_RED
 
+class ConvMatrix
+{
+	public:
+		ConvMatrix()
+		{
+			TopLeft = 0;	TopMid = 0;		TopRight = 0;
+			MidLeft = 0;	Pixel = 1;		MidRight = 0;			
+			BottomLeft = 0; BottomMid = 0;	BottomRight = 0;
+			Factor = 1;
+			Offset = 0;
+		}
+
+		int TopLeft, TopMid, TopRight;
+		int MidLeft, Pixel, MidRight;
+		int BottomLeft, BottomMid, BottomRight;
+		int Factor;
+		int Offset;
+
+		void SetAll(int nVal)
+		{
+			TopLeft = TopMid = TopRight = MidLeft = Pixel = MidRight = BottomLeft = BottomMid = BottomRight = nVal;
+		}
+};
+
 byte* CreateGamma(double color);
 //////////////////////////////////////////////////////////////////////////
 //BMP_ARGB *data:		image data
@@ -39,7 +63,13 @@ void AFX_EXT_API Grayscale(BMP_ARGB *data, int width, int height);
 
 void AFX_EXT_API Invert(BMP_ARGB *data, int width, int height);
 
-
+//////////////////////////////////////////////////////////////////////////
+void AFX_EXT_API Conv3x3(BMP_ARGB *data, int width, int height, ConvMatrix* m);
+void AFX_EXT_API Smooth(BMP_ARGB *data, int width, int height, int nWeight /* default to 1 */);
+void AFX_EXT_API GaussianBlur(BMP_ARGB *data, int width, int height, int nWeight /* default to 4*/);
+void AFX_EXT_API MeanRemoval(BMP_ARGB *data, int width, int height, int nWeight /* default to 9*/ );
+void AFX_EXT_API Sharpen(BMP_ARGB *data, int width, int height, int nWeight /* default to 11*/ );
+void AFX_EXT_API EmbossLaplacian(BMP_ARGB *data, int width, int height);
 
 
 

@@ -10,4 +10,11 @@ enum COLOR_FILTER
 	COLOR_BLUE
 };
 
+typedef struct tag_FloatPoint
+{
+	double X;
+	double Y;
+
+}FloatPoint;
+
 #endif //_TYPEDEF_H__

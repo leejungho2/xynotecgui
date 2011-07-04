@@ -70,6 +70,7 @@ void AFX_EXT_API GaussianBlur(BMP_ARGB *data, int width, int height, int nWeight
 void AFX_EXT_API MeanRemoval(BMP_ARGB *data, int width, int height, int nWeight /* default to 9*/ );
 void AFX_EXT_API Sharpen(BMP_ARGB *data, int width, int height, int nWeight /* default to 11*/ );
 void AFX_EXT_API EmbossLaplacian(BMP_ARGB *data, int width, int height);
+void AFX_EXT_API EdgeDetectQuick(BMP_ARGB *data, int width, int height);
 
 
 

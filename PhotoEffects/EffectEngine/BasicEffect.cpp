@@ -380,20 +380,84 @@ void Smooth(BMP_ARGB *data, int width, int height, int nWeight /* default to 1 *
 
 void GaussianBlur(BMP_ARGB *data, int width, int height, int nWeight /* default to 4*/)
 {
+	ConvMatrix* m = new ConvMatrix();
+	m->SetAll(1);
+	m->Pixel = nWeight;
+	m->TopMid = m->MidLeft = m->MidRight = m->BottomMid = 2;
+	m->Factor = nWeight + 12;
 
+	Conv3x3(data, width, height, m);
+
+	if (m)
+	{
+		delete m;
+		m = NULL;
+	}
 }
 
 void MeanRemoval(BMP_ARGB *data, int width, int height, int nWeight /* default to 9*/ )
 {
+	ConvMatrix* m = new ConvMatrix();
+	m->SetAll(-1);
+	m->Pixel = nWeight;
+	m->Factor = nWeight - 8;
 
+	Conv3x3(data, width, height, m);
+
+	if (m)
+	{
+		delete m;
+		m = NULL;
+	}
 }
 
 void Sharpen(BMP_ARGB *data, int width, int height, int nWeight /* default to 11*/ )
 {
+	ConvMatrix* m = new ConvMatrix();
+	m->SetAll(0);
+	m->Pixel = nWeight;
+	m->TopMid = m->MidLeft = m->MidRight = m->BottomMid = -2;
+	m->Factor = nWeight - 8;
 
+	Conv3x3(data, width, height, m);
+
+	if (m)
+	{
+		delete m;
+		m = NULL;
+	}
 }
 
 void EmbossLaplacian(BMP_ARGB *data, int width, int height)
 {
+	ConvMatrix* m = new ConvMatrix();
+	m->SetAll(-1);
+	m->TopMid = m->MidLeft = m->MidRight = m->BottomMid = 0;
+	m->Pixel = 4;
+	m->Offset = 127;
 
+	Conv3x3(data, width, height, m);
+
+	if (m)
+	{
+		delete m;
+		m = NULL;
+	}
+}
+void EdgeDetectQuick(BMP_ARGB *data, int width, int height)
+{
+	ConvMatrix* m = new ConvMatrix();
+	m->TopLeft = m->TopMid = m->TopRight = -1;
+	m->MidLeft = m->Pixel = m->MidRight = 0;
+	m->BottomLeft = m->BottomMid = m->BottomRight = 1;
+
+	m->Offset = 127;
+
+	Conv3x3(data, width, height, m);
+
+	if (m)
+	{
+		delete m;
+		m = NULL;
+	}
 }

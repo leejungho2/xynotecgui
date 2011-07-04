@@ -30,6 +30,14 @@ namespace ImageEffect {
 			void ApplyGrayscale();
 			void ApplyInvert();
 
+			//////////////////////////////////////////////////////////////////////////
+			void ApplySmooth();
+			void ApplyGaussianBlur();
+			void ApplyMeanRemoval();
+			void ApplySharpen();
+			void ApplyEmbossLaplacian();
+			void ApplyEdgeDetectQuick();
+
 		private:
 			System::Drawing::Bitmap^ mImg;
 			int imgWidth;

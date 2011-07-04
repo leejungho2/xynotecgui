@@ -113,3 +113,99 @@ void ImageEffect::ApplyBasicEffect::ApplyInvert()
 	mImg->UnlockBits(bmData);
 
 }
+
+void ImageEffect::ApplyBasicEffect::ApplySmooth()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	Smooth(data, imgWidth, imgHeight, 1);
+
+	mImg->UnlockBits(bmData);
+}
+
+void ImageEffect::ApplyBasicEffect::ApplyGaussianBlur()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	GaussianBlur(data, imgWidth, imgHeight, 4);
+
+	mImg->UnlockBits(bmData);
+}
+
+void ImageEffect::ApplyBasicEffect::ApplyMeanRemoval()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	MeanRemoval(data, imgWidth, imgHeight, 9);
+
+	mImg->UnlockBits(bmData);
+}
+
+void ImageEffect::ApplyBasicEffect::ApplySharpen()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	Sharpen(data, imgWidth, imgHeight, 11);
+
+	mImg->UnlockBits(bmData);
+}
+
+void ImageEffect::ApplyBasicEffect::ApplyEmbossLaplacian()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	EmbossLaplacian(data, imgWidth, imgHeight);
+
+	mImg->UnlockBits(bmData);
+}
+
+void ImageEffect::ApplyBasicEffect::ApplyEdgeDetectQuick()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	EdgeDetectQuick(data, imgWidth, imgHeight);
+
+	mImg->UnlockBits(bmData);
+}

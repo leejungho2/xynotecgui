@@ -652,7 +652,7 @@ void Flip(BMP_ARGB *data, int width, int height, bool bHorz, bool bVert)
 	delete[] ptFlip;
 }
 
-void AFX_EXT_API RandomJitter(BMP_ARGB *data, int width, int height, short nDegree)
+void RandomJitter(BMP_ARGB *data, int width, int height, short nDegree)
 {
 	IntPoint** ptRandJitter = new IntPoint*[width]; 
 
@@ -693,7 +693,7 @@ void AFX_EXT_API RandomJitter(BMP_ARGB *data, int width, int height, short nDegr
 	delete[] ptRandJitter;
 }
 
-void AFX_EXT_API Swirl(BMP_ARGB *data, int width, int height, double fDegree, bool bSmoothing /* default fDegree to .05 */)
+void Swirl(BMP_ARGB *data, int width, int height, double fDegree, bool bSmoothing /* default fDegree to .05 */)
 {
 	int nWidth = width;
 	int nHeight = height;
@@ -757,7 +757,7 @@ void AFX_EXT_API Swirl(BMP_ARGB *data, int width, int height, double fDegree, bo
 
 }
 
-void AFX_EXT_API Sphere(BMP_ARGB *data, int width, int height, bool bSmoothing)
+void Sphere(BMP_ARGB *data, int width, int height, bool bSmoothing)
 {
 	int nWidth = width;
 	int nHeight = height;
@@ -831,7 +831,7 @@ void AFX_EXT_API Sphere(BMP_ARGB *data, int width, int height, bool bSmoothing)
 
 }
 
-void AFX_EXT_API TimeWarp(BMP_ARGB *data, int width, int height, byte factor, bool bSmoothing)
+void TimeWarp(BMP_ARGB *data, int width, int height, byte factor, bool bSmoothing)
 {
 	int nWidth = width;
 	int nHeight = height;

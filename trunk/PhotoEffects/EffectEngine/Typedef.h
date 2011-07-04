@@ -17,4 +17,14 @@ typedef struct tag_FloatPoint
 
 }FloatPoint;
 
+
+typedef struct tag_IntPoint
+{
+	int X;
+	int Y;
+
+}IntPoint;
+
+
+
 #endif //_TYPEDEF_H__

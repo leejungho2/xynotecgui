@@ -38,6 +38,16 @@ namespace ImageEffect {
 			void ApplyEmbossLaplacian();
 			void ApplyEdgeDetectQuick();
 
+			//////////////////////////////////////////////////////////////////////////
+			void ApplyFlip();
+			void ApplyRandomJitter();
+			void ApplySwirl();
+			void ApplySphere();
+			void ApplyTimeWarp();
+			void ApplyMoire();
+			void ApplyWater();
+			void ApplyPixelate();
+			
 		private:
 			System::Drawing::Bitmap^ mImg;
 			int imgWidth;

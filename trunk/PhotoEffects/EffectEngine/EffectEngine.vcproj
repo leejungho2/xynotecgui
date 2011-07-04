@@ -189,6 +189,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ConvMatrix.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\dllmain.cpp"
 				>
 				<FileConfiguration
@@ -246,6 +250,10 @@
 			>
 			<File
 				RelativePath=".\BasicEffect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ConvMatrix.h"
 				>
 			</File>
 			<File

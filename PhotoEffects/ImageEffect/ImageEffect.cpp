@@ -209,3 +209,124 @@ void ImageEffect::ApplyBasicEffect::ApplyEdgeDetectQuick()
 
 	mImg->UnlockBits(bmData);
 }
+
+void ImageEffect::ApplyBasicEffect::ApplyFlip()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	Flip(data, imgWidth, imgHeight, true, true);
+
+	mImg->UnlockBits(bmData);
+}
+void ImageEffect::ApplyBasicEffect::ApplyRandomJitter()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	RandomJitter(data, imgWidth, imgHeight, 5);
+
+	mImg->UnlockBits(bmData);
+}
+void ImageEffect::ApplyBasicEffect::ApplySwirl()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	Swirl(data, imgWidth, imgHeight, .04, false);
+
+	mImg->UnlockBits(bmData);
+}
+void ImageEffect::ApplyBasicEffect::ApplySphere()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	Sphere(data, imgWidth, imgHeight, false);
+
+	mImg->UnlockBits(bmData);
+}
+void ImageEffect::ApplyBasicEffect::ApplyTimeWarp()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	TimeWarp(data, imgWidth, imgHeight, 15, false);
+
+	mImg->UnlockBits(bmData);
+}
+void ImageEffect::ApplyBasicEffect::ApplyMoire()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	Moire(data, imgWidth, imgHeight, 3);
+
+	mImg->UnlockBits(bmData);
+}
+void ImageEffect::ApplyBasicEffect::ApplyWater()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	Water(data, imgWidth, imgHeight, 15, false);
+
+	mImg->UnlockBits(bmData);
+}
+void ImageEffect::ApplyBasicEffect::ApplyPixelate()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	Pixelate(data, imgWidth, imgHeight, 15, false);
+
+	mImg->UnlockBits(bmData);
+}

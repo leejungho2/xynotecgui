@@ -45,13 +45,22 @@
             this.mnu_BasicEffects_Invert = new System.Windows.Forms.ToolStripMenuItem();
             this.convolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_Convolution_Smooth = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel_Canvas = new System.Windows.Forms.Panel();
             this.mnu_Convolution_GaussianBlur = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_Convolution_MeanRemoval = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_Convolution_Sharpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_Convolution_EmbossLaplacian = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_Convolution_EdgeDetect = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_Convolution_Custom = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel_Canvas = new System.Windows.Forms.Panel();
+            this.displacementFiltersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_DisplacementFilter_Flip = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_DisplacementFilter_RandomJitter = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_DisplacementFilter_Swirl = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_DisplacementFilter_Sphere = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_DisplacementFilter_TimeWarp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_DisplacementFilter_Moire = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_DisplacementFilter_Water = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_DisplacementFilter_Pixelate = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +70,8 @@
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.basicEffectsToolStripMenuItem,
-            this.convolutionToolStripMenuItem});
+            this.convolutionToolStripMenuItem,
+            this.displacementFiltersToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Size = new System.Drawing.Size(646, 24);
@@ -136,42 +146,42 @@
             // mnu_BasicEffects_ColorFilter
             // 
             this.mnu_BasicEffects_ColorFilter.Name = "mnu_BasicEffects_ColorFilter";
-            this.mnu_BasicEffects_ColorFilter.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_ColorFilter.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_ColorFilter.Text = "Color Filter";
             this.mnu_BasicEffects_ColorFilter.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Gamma
             // 
             this.mnu_BasicEffects_Gamma.Name = "mnu_BasicEffects_Gamma";
-            this.mnu_BasicEffects_Gamma.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_Gamma.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_Gamma.Text = "Gamma";
             this.mnu_BasicEffects_Gamma.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Brightness
             // 
             this.mnu_BasicEffects_Brightness.Name = "mnu_BasicEffects_Brightness";
-            this.mnu_BasicEffects_Brightness.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_Brightness.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_Brightness.Text = "Brightness";
             this.mnu_BasicEffects_Brightness.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Contrast
             // 
             this.mnu_BasicEffects_Contrast.Name = "mnu_BasicEffects_Contrast";
-            this.mnu_BasicEffects_Contrast.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_Contrast.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_Contrast.Text = "Contrast";
             this.mnu_BasicEffects_Contrast.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_GrayScale
             // 
             this.mnu_BasicEffects_GrayScale.Name = "mnu_BasicEffects_GrayScale";
-            this.mnu_BasicEffects_GrayScale.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_GrayScale.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_GrayScale.Text = "Grayscale";
             this.mnu_BasicEffects_GrayScale.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Invert
             // 
             this.mnu_BasicEffects_Invert.Name = "mnu_BasicEffects_Invert";
-            this.mnu_BasicEffects_Invert.Size = new System.Drawing.Size(152, 22);
+            this.mnu_BasicEffects_Invert.Size = new System.Drawing.Size(137, 22);
             this.mnu_BasicEffects_Invert.Text = "Invert";
             this.mnu_BasicEffects_Invert.Click += new System.EventHandler(this.menuMain_Click);
             // 
@@ -195,16 +205,6 @@
             this.mnu_Convolution_Smooth.Size = new System.Drawing.Size(167, 22);
             this.mnu_Convolution_Smooth.Text = "Smooth";
             this.mnu_Convolution_Smooth.Click += new System.EventHandler(this.menuMain_Click);
-            // 
-            // panel_Canvas
-            // 
-            this.panel_Canvas.AutoScroll = true;
-            this.panel_Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_Canvas.Location = new System.Drawing.Point(0, 24);
-            this.panel_Canvas.Name = "panel_Canvas";
-            this.panel_Canvas.Size = new System.Drawing.Size(646, 360);
-            this.panel_Canvas.TabIndex = 1;
-            this.panel_Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Canvas_Paint);
             // 
             // mnu_Convolution_GaussianBlur
             // 
@@ -247,6 +247,87 @@
             this.mnu_Convolution_Custom.Size = new System.Drawing.Size(167, 22);
             this.mnu_Convolution_Custom.Text = "Custom";
             this.mnu_Convolution_Custom.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // panel_Canvas
+            // 
+            this.panel_Canvas.AutoScroll = true;
+            this.panel_Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_Canvas.Location = new System.Drawing.Point(0, 24);
+            this.panel_Canvas.Name = "panel_Canvas";
+            this.panel_Canvas.Size = new System.Drawing.Size(646, 360);
+            this.panel_Canvas.TabIndex = 1;
+            this.panel_Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Canvas_Paint);
+            // 
+            // displacementFiltersToolStripMenuItem
+            // 
+            this.displacementFiltersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnu_DisplacementFilter_Flip,
+            this.mnu_DisplacementFilter_RandomJitter,
+            this.mnu_DisplacementFilter_Swirl,
+            this.mnu_DisplacementFilter_Sphere,
+            this.mnu_DisplacementFilter_TimeWarp,
+            this.mnu_DisplacementFilter_Moire,
+            this.mnu_DisplacementFilter_Water,
+            this.mnu_DisplacementFilter_Pixelate});
+            this.displacementFiltersToolStripMenuItem.Name = "displacementFiltersToolStripMenuItem";
+            this.displacementFiltersToolStripMenuItem.Size = new System.Drawing.Size(114, 20);
+            this.displacementFiltersToolStripMenuItem.Text = "Displacement Filters";
+            // 
+            // mnu_DisplacementFilter_Flip
+            // 
+            this.mnu_DisplacementFilter_Flip.Name = "mnu_DisplacementFilter_Flip";
+            this.mnu_DisplacementFilter_Flip.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_Flip.Text = "Flip";
+            this.mnu_DisplacementFilter_Flip.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_DisplacementFilter_RandomJitter
+            // 
+            this.mnu_DisplacementFilter_RandomJitter.Name = "mnu_DisplacementFilter_RandomJitter";
+            this.mnu_DisplacementFilter_RandomJitter.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_RandomJitter.Text = "Random Jitter";
+            this.mnu_DisplacementFilter_RandomJitter.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_DisplacementFilter_Swirl
+            // 
+            this.mnu_DisplacementFilter_Swirl.Name = "mnu_DisplacementFilter_Swirl";
+            this.mnu_DisplacementFilter_Swirl.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_Swirl.Text = "Swirl";
+            this.mnu_DisplacementFilter_Swirl.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_DisplacementFilter_Sphere
+            // 
+            this.mnu_DisplacementFilter_Sphere.Name = "mnu_DisplacementFilter_Sphere";
+            this.mnu_DisplacementFilter_Sphere.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_Sphere.Text = "Sphere";
+            this.mnu_DisplacementFilter_Sphere.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_DisplacementFilter_TimeWarp
+            // 
+            this.mnu_DisplacementFilter_TimeWarp.Name = "mnu_DisplacementFilter_TimeWarp";
+            this.mnu_DisplacementFilter_TimeWarp.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_TimeWarp.Text = "Time Warp";
+            this.mnu_DisplacementFilter_TimeWarp.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_DisplacementFilter_Moire
+            // 
+            this.mnu_DisplacementFilter_Moire.Name = "mnu_DisplacementFilter_Moire";
+            this.mnu_DisplacementFilter_Moire.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_Moire.Text = "Moire";
+            this.mnu_DisplacementFilter_Moire.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_DisplacementFilter_Water
+            // 
+            this.mnu_DisplacementFilter_Water.Name = "mnu_DisplacementFilter_Water";
+            this.mnu_DisplacementFilter_Water.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_Water.Text = "Water";
+            this.mnu_DisplacementFilter_Water.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_DisplacementFilter_Pixelate
+            // 
+            this.mnu_DisplacementFilter_Pixelate.Name = "mnu_DisplacementFilter_Pixelate";
+            this.mnu_DisplacementFilter_Pixelate.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_Pixelate.Text = "Pixelate";
+            this.mnu_DisplacementFilter_Pixelate.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // MainForm
             // 
@@ -293,6 +374,15 @@
         private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_EmbossLaplacian;
         private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_EdgeDetect;
         private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_Custom;
+        private System.Windows.Forms.ToolStripMenuItem displacementFiltersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Flip;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_RandomJitter;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Swirl;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Sphere;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_TimeWarp;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Moire;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Water;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Pixelate;
     }
 }
 

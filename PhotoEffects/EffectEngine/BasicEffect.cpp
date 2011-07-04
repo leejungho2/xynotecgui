@@ -461,3 +461,614 @@ void EdgeDetectQuick(BMP_ARGB *data, int width, int height)
 		m = NULL;
 	}
 }
+
+void OffsetFilterAbs(BMP_ARGB *data, int width, int height, IntPoint** offset)
+{		
+	int nPixel;
+	int stride = width * 4;//4 bytes per pixel
+	int scanline = stride;
+	
+	BMP_ARGB* cloneData = new BMP_ARGB[width*height];
+	memcpy(cloneData, data, width*height*sizeof(BMP_ARGB));
+
+	byte * p = (byte *)data;
+	byte* pSrc = (byte*)cloneData; 	
+
+	int nWidth = width;
+	int nHeight = height;
+
+	int xOffset, yOffset;
+
+	for(int y=0;y < nHeight;++y)
+	{
+		for(int x=0; x < nWidth; ++x )
+		{	
+			xOffset = offset[x][y].X;
+			yOffset = offset[x][y].Y;
+
+			if (yOffset >= 0 && yOffset < nHeight && xOffset >= 0 && xOffset < nWidth)
+			{
+				p[0] = pSrc[(yOffset * scanline) + (xOffset * 4)];
+				p[1] = pSrc[(yOffset * scanline) + (xOffset * 4) + 1];
+				p[2] = pSrc[(yOffset * scanline) + (xOffset * 4) + 2];
+			}
+
+			p += 4;
+		}
+	}
+
+	if (cloneData)
+	{
+		delete[] cloneData;
+		cloneData = NULL;
+	}
+}
+
+void OffsetFilter(BMP_ARGB *data, int width, int height, IntPoint** offset)
+{
+	int nPixel;
+	int stride = width * 4;//4 bytes per pixel
+	int scanline = stride;
+
+	BMP_ARGB* cloneData = new BMP_ARGB[width*height];
+	memcpy(cloneData, data, width*height*sizeof(BMP_ARGB));
+
+	byte * p = (byte *)data;
+	byte* pSrc = (byte*)cloneData; 	
+
+	int nWidth = width;
+	int nHeight = height;
+
+	int xOffset, yOffset;
+
+	for(int y=0;y < nHeight;++y)
+	{
+		for(int x=0; x < nWidth; ++x )
+		{	
+			xOffset = offset[x][y].X;
+			yOffset = offset[x][y].Y;
+
+			if (y+yOffset >= 0 && y+yOffset < nHeight && x+xOffset >= 0 && x+xOffset < nWidth)
+			{
+				p[0] = pSrc[((y+yOffset) * scanline) + ((x+xOffset) * 4)];
+				p[1] = pSrc[((y+yOffset) * scanline) + ((x+xOffset) * 4) + 1];
+				p[2] = pSrc[((y+yOffset) * scanline) + ((x+xOffset) * 4) + 2];
+			}
+
+			p += 4;
+		}
+	}
+
+	if (cloneData)
+	{
+		delete[] cloneData;
+		cloneData = NULL;
+	}
+}
+
+void OffsetFilterAntiAlias(BMP_ARGB *data, int width, int height, FloatPoint** fp)
+{
+	int nPixel;
+	int stride = width * 4;//4 bytes per pixel
+	int scanline = stride;
+
+	BMP_ARGB* cloneData = new BMP_ARGB[width*height];
+	memcpy(cloneData, data, width*height*sizeof(BMP_ARGB));
+
+	byte * p = (byte *)data;
+	byte* pSrc = (byte*)cloneData; 	
+
+	int nWidth = width;
+	int nHeight = height;
+
+	double xOffset, yOffset;
+
+	double fraction_x, fraction_y, one_minus_x, one_minus_y;
+	int ceil_x, ceil_y, floor_x, floor_y;
+	byte p1, p2;
+
+	for(int y=0;y < nHeight;++y)
+	{
+		for(int x=0; x < nWidth; ++x )
+		{	
+			xOffset = fp[x][y].X;
+			yOffset = fp[x][y].Y;
+
+			// Setup
+
+			floor_x = (int)floor(xOffset);
+			floor_y = (int)floor(yOffset);
+			ceil_x = floor_x + 1;
+			ceil_y = floor_y + 1;
+			fraction_x = xOffset - floor_x;
+			fraction_y = yOffset - floor_y;
+			one_minus_x = 1.0 - fraction_x;
+			one_minus_y = 1.0 - fraction_y;
+
+			if (floor_y >= 0 && ceil_y < nHeight && floor_x >= 0 && ceil_x < nWidth)
+			{
+				// Blue
+
+				p1 = (byte)(one_minus_x * (double)(pSrc[floor_y * scanline + floor_x * 4]) +
+					fraction_x * (double)(pSrc[floor_y * scanline + ceil_x * 4]));
+
+				p2 = (byte)(one_minus_x * (double)(pSrc[ceil_y * scanline + floor_x * 4]) +
+					fraction_x * (double)(pSrc[ceil_y * scanline + 4 * ceil_x]));
+
+				p[x * 4 + y*scanline] = (byte)(one_minus_y * (double)(p1) + fraction_y * (double)(p2));
+
+				// Green
+
+				p1 = (byte)(one_minus_x * (double)(pSrc[floor_y * scanline + floor_x * 4 + 1]) +
+					fraction_x * (double)(pSrc[floor_y * scanline + ceil_x * 4 + 1]));
+
+				p2 = (byte)(one_minus_x * (double)(pSrc[ceil_y * scanline + floor_x * 4 + 1]) +
+					fraction_x * (double)(pSrc[ceil_y * scanline + 4 * ceil_x + 1]));
+
+				p[x * 4 + y*scanline + 1] = (byte)(one_minus_y * (double)(p1) + fraction_y * (double)(p2));
+
+				// Red
+
+				p1 = (byte)(one_minus_x * (double)(pSrc[floor_y * scanline + floor_x * 4 + 2]) +
+					fraction_x * (double)(pSrc[floor_y * scanline + ceil_x * 4 + 2]));
+
+				p2 = (byte)(one_minus_x * (double)(pSrc[ceil_y * scanline + floor_x * 4 + 2]) +
+					fraction_x * (double)(pSrc[ceil_y * scanline + 4 * ceil_x + 2]));
+
+				p[x * 4 + y*scanline + 2] = (byte)(one_minus_y * (double)(p1) + fraction_y * (double)(p2));
+			}
+		}
+	}
+	
+	if (cloneData)
+	{
+		delete[] cloneData;
+		cloneData = NULL;
+	}
+
+}
+
+void Flip(BMP_ARGB *data, int width, int height, bool bHorz, bool bVert)
+{
+	IntPoint** ptFlip = new IntPoint*[width]; 
+
+	for(int i = 0; i < width; i++)
+		ptFlip[i] = new IntPoint[height];
+
+	int nWidth = width;
+	int nHeight = height;
+
+	for (int x = 0; x < nWidth; ++x)
+		for (int y = 0; y < nHeight; ++y)
+		{
+			ptFlip[x][y].X = (bHorz) ? nWidth - (x+1) : x;
+			ptFlip[x][y].Y = (bVert) ? nHeight - (y + 1) : y;
+		}
+
+	OffsetFilterAbs(data, width, height, ptFlip);		
+
+	for(int i = 0; i < width; i++)
+		delete[] ptFlip[i];
+	delete[] ptFlip;
+}
+
+void AFX_EXT_API RandomJitter(BMP_ARGB *data, int width, int height, short nDegree)
+{
+	IntPoint** ptRandJitter = new IntPoint*[width]; 
+
+	for(int i = 0; i < width; i++)
+		ptRandJitter[i] = new IntPoint[height];
+
+	int nWidth = width;
+	int nHeight = height;
+
+	int newX, newY;
+
+	short nHalf = (short)floor((double)nDegree/2);
+
+	srand(time(NULL));  
+
+	for (int x = 0; x < nWidth; ++x)
+		for (int y = 0; y < nHeight; ++y)
+		{
+			newX = rand()%nDegree - nHalf;
+
+			if (x + newX > 0 && x + newX < nWidth)
+				ptRandJitter[x][y].X = newX;
+			else
+				ptRandJitter[x][y].X = 0;
+
+			newY = rand()%nDegree - nHalf;
+
+			if (y + newY > 0 && y + newY < nWidth)
+				ptRandJitter[x][y].Y = newY;
+			else
+				ptRandJitter[x][y].Y = 0;
+		}
+
+	OffsetFilter(data, width, height, ptRandJitter);	
+
+	for(int i = 0; i < width; i++)
+		delete[] ptRandJitter[i];
+	delete[] ptRandJitter;
+}
+
+void AFX_EXT_API Swirl(BMP_ARGB *data, int width, int height, double fDegree, bool bSmoothing /* default fDegree to .05 */)
+{
+	int nWidth = width;
+	int nHeight = height;
+
+	FloatPoint** fp = new FloatPoint*[nWidth];
+	IntPoint** pt = new IntPoint*[nWidth];
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		fp[i] = new FloatPoint[height];
+		pt[i] = new IntPoint[height];
+	}
+
+	IntPoint mid;
+	mid.X = nWidth/2;
+	mid.Y = nHeight/2;
+
+	double theta, radius;
+	double newX, newY;
+
+	for (int x = 0; x < nWidth; ++x)
+		for (int y = 0; y < nHeight; ++y)
+		{
+			int trueX = x - mid.X;
+			int trueY = y - mid.Y;
+			theta = atan2((double)trueY,(double)trueX);
+
+			radius = sqrt((double)(trueX*trueX + trueY*trueY));
+
+			newX = mid.X + (radius * cos(theta + fDegree * radius));
+			if (newX > 0 && newX < nWidth)
+			{
+				fp[x][y].X = newX;
+				pt[x][y].X = (int)newX;
+			}
+			else
+				fp[x][y].X = pt[x][y].X = x;
+
+			newY = mid.Y + (radius * sin(theta + fDegree * radius));
+			if (newY > 0 && newY < nHeight)
+			{
+				fp[x][y].Y = newY;
+				pt[x][y].Y = (int)newY;
+			}
+			else
+				fp[x][y].Y = pt[x][y].Y = y;
+		}
+
+	if(bSmoothing)
+		OffsetFilterAntiAlias(data, width, height, fp);
+	else
+		OffsetFilterAbs(data, width, height, pt);		
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		delete[] fp[i];
+		delete[] pt[i];
+	}
+	delete[] fp;
+	delete[] pt;
+
+}
+
+void AFX_EXT_API Sphere(BMP_ARGB *data, int width, int height, bool bSmoothing)
+{
+	int nWidth = width;
+	int nHeight = height;
+
+	FloatPoint** fp = new FloatPoint*[nWidth];
+	IntPoint** pt = new IntPoint*[nWidth];
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		fp[i] = new FloatPoint[height];
+		pt[i] = new IntPoint[height];
+	}
+
+	IntPoint mid;
+	mid.X = nWidth/2;
+	mid.Y = nHeight/2;
+
+	double theta, radius;
+	double newX, newY;
+
+	for (int x = 0; x < nWidth; ++x)
+		for (int y = 0; y < nHeight; ++y)
+		{
+			int trueX = x - mid.X;
+			int trueY = y - mid.Y;
+			theta = atan2((double)trueY, (double)trueX);
+
+			radius = sqrt((double)(trueX*trueX + trueY*trueY));
+
+			double newRadius = radius * radius/(max(mid.X, mid.Y));
+
+			newX = mid.X + (newRadius * cos(theta));
+
+			if (newX > 0 && newX < nWidth)
+			{
+				fp[x][y].X = newX;
+				pt[x][y].X = (int) newX;
+			}
+			else
+			{
+				fp[x][y].X = fp[x][y].Y = 0.0;
+				pt[x][y].X = pt[x][y].Y = 0;
+			}
+
+			newY = mid.Y + (newRadius * sin(theta));
+
+			if (newY > 0 && newY < nHeight && newX > 0 && newX < nWidth)
+			{
+				fp[x][y].Y = newY;
+				pt[x][y].Y = (int) newY;
+			}
+			else
+			{
+				fp[x][y].X = fp[x][y].Y = 0.0;
+				pt[x][y].X = pt[x][y].Y = 0;
+			}
+		}
+
+	if(bSmoothing)
+		OffsetFilterAbs(data, width, height, pt);
+	else
+		OffsetFilterAntiAlias(data, width, height, fp);
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		delete[] fp[i];
+		delete[] pt[i];
+	}
+	delete[] fp;
+	delete[] pt;
+
+}
+
+void AFX_EXT_API TimeWarp(BMP_ARGB *data, int width, int height, byte factor, bool bSmoothing)
+{
+	int nWidth = width;
+	int nHeight = height;
+
+	FloatPoint** fp = new FloatPoint*[nWidth];
+	IntPoint** pt = new IntPoint*[nWidth];
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		fp[i] = new FloatPoint[height];
+		pt[i] = new IntPoint[height];
+	}
+
+	IntPoint mid;
+	mid.X = nWidth/2;
+	mid.Y = nHeight/2;
+
+	double theta, radius;
+	double newX, newY;
+
+	for (int x = 0; x < nWidth; ++x)
+		for (int y = 0; y < nHeight; ++y)
+		{
+			int trueX = x - mid.X;
+			int trueY = y - mid.Y;
+			theta = atan2((double)trueY, (double)trueX);
+
+			radius = sqrt((double)(trueX*trueX + trueY*trueY));
+
+			double newRadius = sqrt(radius) * factor;
+
+			newX = mid.X + (newRadius * cos(theta));
+			if (newX > 0 && newX < nWidth)
+			{
+				fp[x][y].X = newX;
+				pt[x][y].X = (int) newX;
+			}
+			else
+			{
+				fp[x][y].X = 0.0;
+				pt[x][y].X = 0;
+			}
+
+			newY = mid.Y + (newRadius * sin(theta));
+			if (newY > 0 && newY < nHeight)
+			{
+				fp[x][y].Y = newY;
+				pt[x][y].Y = (int) newY;
+			}
+			else
+			{
+				fp[x][y].Y = 0.0;
+				pt[x][y].Y = 0;
+			}
+		}
+
+	if(bSmoothing)
+		OffsetFilterAbs(data, width, height, pt);
+	else
+		OffsetFilterAntiAlias(data, width, height, fp);	
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		delete[] fp[i];
+		delete[] pt[i];
+	}
+	delete[] fp;
+	delete[] pt;
+}
+
+void Moire(BMP_ARGB *data, int width, int height, double fDegree)
+{
+	int nWidth = width;
+	int nHeight = height;
+
+	FloatPoint** fp = new FloatPoint*[nWidth];
+	IntPoint** pt = new IntPoint*[nWidth];
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		fp[i] = new FloatPoint[height];
+		pt[i] = new IntPoint[height];
+	}
+
+	IntPoint mid;
+	mid.X = nWidth/2;
+	mid.Y = nHeight/2;
+
+	double theta, radius;
+	int newX, newY;
+
+	for (int x = 0; x < nWidth; ++x)
+		for (int y = 0; y < nHeight; ++y)
+		{
+			int trueX = x - mid.X;
+			int trueY = y - mid.Y;
+			theta = atan2((double)trueX, (double)trueY);
+
+			radius = sqrt((double)(trueX*trueX + trueY*trueY));
+
+			newX = (int)(radius * sin(theta + fDegree * radius));
+			if (newX > 0 && newX < nWidth)
+			{
+				pt[x][y].X = (int) newX;
+			}
+			else
+			{
+				pt[x][y].X = 0;
+			}
+
+			newY = (int)(radius * sin(theta + fDegree * radius));
+			if (newY > 0 && newY < nHeight)
+			{
+				pt[x][y].Y = (int) newY;
+			}
+			else
+			{
+				pt[x][y].Y = 0;
+			}
+		}
+
+	OffsetFilterAbs(data, width, height, pt);
+	
+	for(int i = 0; i < nWidth; i++)
+	{
+		delete[] fp[i];
+		delete[] pt[i];
+	}
+	delete[] fp;
+	delete[] pt;
+}
+
+void Water(BMP_ARGB *data, int width, int height, short nWave, bool bSmoothing)
+{
+	int nWidth = width;
+	int nHeight = height;
+
+	FloatPoint** fp = new FloatPoint*[nWidth];
+	IntPoint** pt = new IntPoint*[nWidth];
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		fp[i] = new FloatPoint[height];
+		pt[i] = new IntPoint[height];
+	}
+
+	IntPoint mid;
+	mid.X = nWidth/2;
+	mid.Y = nHeight/2;
+
+	double newX, newY;
+	double xo, yo;
+
+	for (int x = 0; x < nWidth; ++x)
+		for (int y = 0; y < nHeight; ++y)
+		{
+			xo = ((double)nWave * sin(2.0 * 3.1415 * (float)y / 128.0));
+			yo = ((double)nWave * cos(2.0 * 3.1415 * (float)x / 128.0));
+
+			newX = (x + xo);
+			newY = (y + yo);
+
+			if (newX > 0 && newX < nWidth)
+			{
+				fp[x][y].X = newX;
+				pt[x][y].X = (int) newX;
+			}
+			else
+			{
+				fp[x][y].X = 0.0;
+				pt[x][y].X = 0;
+			}
+
+
+			if (newY > 0 && newY < nHeight)
+			{
+				fp[x][y].Y = newY;
+				pt[x][y].Y = (int) newY;
+			}
+			else
+			{
+				fp[x][y].Y = 0.0;
+				pt[x][y].Y = 0;
+			}
+		}
+
+	if(bSmoothing)
+		OffsetFilterAbs(data, width, height, pt);
+	else
+		OffsetFilterAntiAlias(data, width, height, fp);
+
+	for(int i = 0; i < nWidth; i++)
+	{
+		delete[] fp[i];
+		delete[] pt[i];
+	}
+	delete[] fp;
+	delete[] pt;
+}
+
+void Pixelate(BMP_ARGB *data, int width, int height, short pixel, bool bGrid)
+{
+	int nWidth = width;
+	int nHeight = height;
+
+	IntPoint** pt = new IntPoint*[nWidth];
+
+	for(int i = 0; i < nWidth; i++)
+		pt[i] = new IntPoint[height];
+
+	int newX, newY;
+
+	for (int x = 0; x < nWidth; ++x)
+		for (int y = 0; y < nHeight; ++y)
+		{
+			newX = pixel - x%pixel;
+
+			if (bGrid && newX == pixel)
+				pt[x][y].X = -x;
+			else if (x + newX > 0 && x +newX < nWidth)
+				pt[x][y].X = newX;
+			else
+				pt[x][y].X = 0;
+
+			newY = pixel - y%pixel;
+
+			if (bGrid && newY == pixel)
+				pt[x][y].Y = -y;
+			else if (y + newY > 0 && y + newY < nHeight)
+				pt[x][y].Y = newY;
+			else
+				pt[x][y].Y = 0;
+		}
+
+	OffsetFilter(data, width, height, pt);
+
+	for(int i = 0; i < nWidth; i++)
+		delete[] pt[i];
+	delete[] pt;
+}

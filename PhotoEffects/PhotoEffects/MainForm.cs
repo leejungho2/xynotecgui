@@ -95,6 +95,38 @@ namespace PhotoEffects
             {
                 Convolution_Custom();
             }
+            else if (sender == mnu_DisplacementFilter_Flip)
+            {
+                DisplacementFilter_Flip();
+            }
+            else if (sender == mnu_DisplacementFilter_RandomJitter)
+            {
+                DisplacementFilter_RandomJitter();
+            }
+            else if (sender == mnu_DisplacementFilter_Swirl)
+            {
+                DisplacementFilter_Swirl();
+            }
+            else if (sender == mnu_DisplacementFilter_Sphere)
+            {
+                DisplacementFilter_Sphere();
+            }
+            else if (sender == mnu_DisplacementFilter_TimeWarp)
+            {
+                DisplacementFilter_TimeWarp();
+            }
+            else if (sender == mnu_DisplacementFilter_Moire)
+            {
+                DisplacementFilter_Moire();
+            }
+            else if (sender == mnu_DisplacementFilter_Water)
+            {
+                DisplacementFilter_Water();
+            }
+            else if (sender == mnu_DisplacementFilter_Pixelate)
+            {
+                DisplacementFilter_Pixelate();
+            }
         }
 
 #region MenuItem Event
@@ -294,6 +326,86 @@ namespace PhotoEffects
 
             this.panel_Canvas.Invalidate();
         }            
+
+        private void DisplacementFilter_Flip()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyFlip();
+
+            this.panel_Canvas.Invalidate();
+        }
+        
+        private void DisplacementFilter_RandomJitter()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyRandomJitter();
+
+            this.panel_Canvas.Invalidate();
+        }
+        
+        private void DisplacementFilter_Swirl()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplySwirl();
+
+            this.panel_Canvas.Invalidate();
+        }
+        
+        private void DisplacementFilter_Sphere()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplySphere();
+
+            this.panel_Canvas.Invalidate();
+        }
+        
+        private void DisplacementFilter_TimeWarp()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyTimeWarp();
+
+            this.panel_Canvas.Invalidate();
+        }
+        
+        private void DisplacementFilter_Moire()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyMoire();
+
+            this.panel_Canvas.Invalidate();
+        }
+        
+        private void DisplacementFilter_Water()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyWater();
+
+            this.panel_Canvas.Invalidate();
+        }
+        
+        private void DisplacementFilter_Pixelate()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyPixelate();
+
+            this.panel_Canvas.Invalidate();
+        }
 
 #endregion
 

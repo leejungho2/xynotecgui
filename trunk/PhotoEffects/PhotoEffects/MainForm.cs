@@ -67,6 +67,34 @@ namespace PhotoEffects
             {
                 BasicEffects_Invert();
             }
+            else if (sender == mnu_Convolution_Smooth)
+            {
+                Convolution_Smooth();
+            }
+            else if (sender == mnu_Convolution_GaussianBlur)
+            {
+                Convolution_GaussianBlur();
+            }
+            else if (sender == mnu_Convolution_MeanRemoval)
+            {
+                Convolution_MeanRemoval();
+            }
+            else if (sender == mnu_Convolution_Sharpen)
+            {
+                Convolution_Sharpen();
+            }
+            else if (sender == mnu_Convolution_EmbossLaplacian)
+            {
+                Convolution_EmbossLaplacian();
+            }
+            else if (sender == mnu_Convolution_EdgeDetect)
+            {
+                Convolution_EdgeDetect();
+            }
+            else if (sender == mnu_Convolution_Custom)
+            {
+                Convolution_Custom();
+            }
         }
 
 #region MenuItem Event
@@ -195,6 +223,77 @@ namespace PhotoEffects
             this.panel_Canvas.Invalidate();
 
         }
+
+        private void Convolution_Smooth()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplySmooth();
+
+            this.panel_Canvas.Invalidate();
+        }
+
+        private void Convolution_GaussianBlur()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyGaussianBlur();
+
+            this.panel_Canvas.Invalidate();
+
+        }
+        
+        private void Convolution_MeanRemoval()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyMeanRemoval();
+
+            this.panel_Canvas.Invalidate();
+        }
+
+        private void Convolution_Sharpen()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplySharpen();
+
+            this.panel_Canvas.Invalidate();
+        }
+
+        private void Convolution_EmbossLaplacian()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyEmbossLaplacian();
+
+            this.panel_Canvas.Invalidate();
+        }
+        
+        private void Convolution_EdgeDetect()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyEdgeDetectQuick();
+
+            this.panel_Canvas.Invalidate();
+        }
+
+        private void Convolution_Custom()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            //basicEffect.ApplySmooth();
+
+            this.panel_Canvas.Invalidate();
+        }            
 
 #endregion
 

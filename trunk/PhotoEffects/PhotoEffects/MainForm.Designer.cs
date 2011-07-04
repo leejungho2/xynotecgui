@@ -43,7 +43,15 @@
             this.mnu_BasicEffects_Contrast = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_BasicEffects_GrayScale = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_BasicEffects_Invert = new System.Windows.Forms.ToolStripMenuItem();
+            this.convolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Convolution_Smooth = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_Canvas = new System.Windows.Forms.Panel();
+            this.mnu_Convolution_GaussianBlur = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Convolution_MeanRemoval = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Convolution_Sharpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Convolution_EmbossLaplacian = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Convolution_EdgeDetect = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Convolution_Custom = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +60,8 @@
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.basicEffectsToolStripMenuItem});
+            this.basicEffectsToolStripMenuItem,
+            this.convolutionToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Size = new System.Drawing.Size(646, 24);
@@ -127,44 +136,65 @@
             // mnu_BasicEffects_ColorFilter
             // 
             this.mnu_BasicEffects_ColorFilter.Name = "mnu_BasicEffects_ColorFilter";
-            this.mnu_BasicEffects_ColorFilter.Size = new System.Drawing.Size(137, 22);
+            this.mnu_BasicEffects_ColorFilter.Size = new System.Drawing.Size(152, 22);
             this.mnu_BasicEffects_ColorFilter.Text = "Color Filter";
             this.mnu_BasicEffects_ColorFilter.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Gamma
             // 
             this.mnu_BasicEffects_Gamma.Name = "mnu_BasicEffects_Gamma";
-            this.mnu_BasicEffects_Gamma.Size = new System.Drawing.Size(137, 22);
+            this.mnu_BasicEffects_Gamma.Size = new System.Drawing.Size(152, 22);
             this.mnu_BasicEffects_Gamma.Text = "Gamma";
             this.mnu_BasicEffects_Gamma.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Brightness
             // 
             this.mnu_BasicEffects_Brightness.Name = "mnu_BasicEffects_Brightness";
-            this.mnu_BasicEffects_Brightness.Size = new System.Drawing.Size(137, 22);
+            this.mnu_BasicEffects_Brightness.Size = new System.Drawing.Size(152, 22);
             this.mnu_BasicEffects_Brightness.Text = "Brightness";
             this.mnu_BasicEffects_Brightness.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Contrast
             // 
             this.mnu_BasicEffects_Contrast.Name = "mnu_BasicEffects_Contrast";
-            this.mnu_BasicEffects_Contrast.Size = new System.Drawing.Size(137, 22);
+            this.mnu_BasicEffects_Contrast.Size = new System.Drawing.Size(152, 22);
             this.mnu_BasicEffects_Contrast.Text = "Contrast";
             this.mnu_BasicEffects_Contrast.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_GrayScale
             // 
             this.mnu_BasicEffects_GrayScale.Name = "mnu_BasicEffects_GrayScale";
-            this.mnu_BasicEffects_GrayScale.Size = new System.Drawing.Size(137, 22);
+            this.mnu_BasicEffects_GrayScale.Size = new System.Drawing.Size(152, 22);
             this.mnu_BasicEffects_GrayScale.Text = "Grayscale";
             this.mnu_BasicEffects_GrayScale.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // mnu_BasicEffects_Invert
             // 
             this.mnu_BasicEffects_Invert.Name = "mnu_BasicEffects_Invert";
-            this.mnu_BasicEffects_Invert.Size = new System.Drawing.Size(137, 22);
+            this.mnu_BasicEffects_Invert.Size = new System.Drawing.Size(152, 22);
             this.mnu_BasicEffects_Invert.Text = "Invert";
             this.mnu_BasicEffects_Invert.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // convolutionToolStripMenuItem
+            // 
+            this.convolutionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnu_Convolution_Smooth,
+            this.mnu_Convolution_GaussianBlur,
+            this.mnu_Convolution_MeanRemoval,
+            this.mnu_Convolution_Sharpen,
+            this.mnu_Convolution_EmbossLaplacian,
+            this.mnu_Convolution_EdgeDetect,
+            this.mnu_Convolution_Custom});
+            this.convolutionToolStripMenuItem.Name = "convolutionToolStripMenuItem";
+            this.convolutionToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.convolutionToolStripMenuItem.Text = "Convolution";
+            // 
+            // mnu_Convolution_Smooth
+            // 
+            this.mnu_Convolution_Smooth.Name = "mnu_Convolution_Smooth";
+            this.mnu_Convolution_Smooth.Size = new System.Drawing.Size(167, 22);
+            this.mnu_Convolution_Smooth.Text = "Smooth";
+            this.mnu_Convolution_Smooth.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // panel_Canvas
             // 
@@ -175,6 +205,48 @@
             this.panel_Canvas.Size = new System.Drawing.Size(646, 360);
             this.panel_Canvas.TabIndex = 1;
             this.panel_Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Canvas_Paint);
+            // 
+            // mnu_Convolution_GaussianBlur
+            // 
+            this.mnu_Convolution_GaussianBlur.Name = "mnu_Convolution_GaussianBlur";
+            this.mnu_Convolution_GaussianBlur.Size = new System.Drawing.Size(167, 22);
+            this.mnu_Convolution_GaussianBlur.Text = "Gaussian Blur";
+            this.mnu_Convolution_GaussianBlur.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_Convolution_MeanRemoval
+            // 
+            this.mnu_Convolution_MeanRemoval.Name = "mnu_Convolution_MeanRemoval";
+            this.mnu_Convolution_MeanRemoval.Size = new System.Drawing.Size(167, 22);
+            this.mnu_Convolution_MeanRemoval.Text = "Mean Removal";
+            this.mnu_Convolution_MeanRemoval.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_Convolution_Sharpen
+            // 
+            this.mnu_Convolution_Sharpen.Name = "mnu_Convolution_Sharpen";
+            this.mnu_Convolution_Sharpen.Size = new System.Drawing.Size(167, 22);
+            this.mnu_Convolution_Sharpen.Text = "Sharpen";
+            this.mnu_Convolution_Sharpen.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_Convolution_EmbossLaplacian
+            // 
+            this.mnu_Convolution_EmbossLaplacian.Name = "mnu_Convolution_EmbossLaplacian";
+            this.mnu_Convolution_EmbossLaplacian.Size = new System.Drawing.Size(167, 22);
+            this.mnu_Convolution_EmbossLaplacian.Text = "EmbossLaplacian";
+            this.mnu_Convolution_EmbossLaplacian.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_Convolution_EdgeDetect
+            // 
+            this.mnu_Convolution_EdgeDetect.Name = "mnu_Convolution_EdgeDetect";
+            this.mnu_Convolution_EdgeDetect.Size = new System.Drawing.Size(167, 22);
+            this.mnu_Convolution_EdgeDetect.Text = "EdgeDetectQuick";
+            this.mnu_Convolution_EdgeDetect.Click += new System.EventHandler(this.menuMain_Click);
+            // 
+            // mnu_Convolution_Custom
+            // 
+            this.mnu_Convolution_Custom.Name = "mnu_Convolution_Custom";
+            this.mnu_Convolution_Custom.Size = new System.Drawing.Size(167, 22);
+            this.mnu_Convolution_Custom.Text = "Custom";
+            this.mnu_Convolution_Custom.Click += new System.EventHandler(this.menuMain_Click);
             // 
             // MainForm
             // 
@@ -213,6 +285,14 @@
         private System.Windows.Forms.ToolStripMenuItem mnu_BasicEffects_GrayScale;
         private System.Windows.Forms.ToolStripMenuItem mnu_BasicEffects_Invert;
         private System.Windows.Forms.Panel panel_Canvas;
+        private System.Windows.Forms.ToolStripMenuItem convolutionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_Smooth;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_GaussianBlur;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_MeanRemoval;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_Sharpen;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_EmbossLaplacian;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_EdgeDetect;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Convolution_Custom;
     }
 }
 

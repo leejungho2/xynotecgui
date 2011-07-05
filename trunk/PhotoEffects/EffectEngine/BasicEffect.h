@@ -64,6 +64,7 @@ void AFX_EXT_API Contrast(BMP_ARGB *data, int width, int height, double contrast
 void AFX_EXT_API Grayscale(BMP_ARGB *data, int width, int height);
 
 void AFX_EXT_API Invert(BMP_ARGB *data, int width, int height);
+void AFX_EXT_API Vignette(BMP_ARGB *data, int width, int height);
 
 //////////////////////////////////////////////////////////////////////////
 void AFX_EXT_API Conv3x3(BMP_ARGB *data, int width, int height, ConvMatrix* m);

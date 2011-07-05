@@ -108,7 +108,8 @@ void ImageEffect::ApplyBasicEffect::ApplyInvert()
 
 	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
 
-	Invert(data, imgWidth, imgHeight);
+	//Invert(data, imgWidth, imgHeight);
+	Vignette(data, imgWidth, imgHeight);
 
 	mImg->UnlockBits(bmData);
 

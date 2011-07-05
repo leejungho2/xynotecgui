@@ -270,6 +270,51 @@ void Invert(BMP_ARGB *data, int width, int height)
 	}
 }
 
+void Vignette(BMP_ARGB *data, int width, int height)
+{
+	double ScaleX = 1;
+	double ScaleY = 1;
+	double alpha;
+	double Amount1 = 1;
+	double power = Amount1 * Amount1;
+	bool bInvert = false;
+
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			byte* bData = (byte*)data; 	
+
+			bData[0] = 255 - bData[0];
+			bData[1] = 255 - bData[1];
+			bData[2] = 255 - bData[2];
+
+			alpha = (sin((i)*3.141592/(width)) ) * (sin((j)*3.141592/(height)) );
+			double a = cos((i-width/2)*6.283*ScaleX/(width)) / 2.0;
+			double b = cos((j-height/2)*6.283*ScaleY/(height)) / 2.0; 
+			alpha = (a + 0.5) * (b + 0.5);
+			alpha = alpha * power;
+			if( bInvert )
+			{
+				alpha = 1 - alpha;   
+			}
+			//Towards transparent
+			if( alpha > 1 )
+			{
+				alpha = 1;
+			}
+			// Towards black
+			if( alpha <0.0)
+			{
+				alpha = 0.0;
+			}
+			bData[3] = (byte)(bData[3]* alpha);
+			
+			data++;
+		}
+	}
+}
+
 void Conv3x3(BMP_ARGB *data, int width, int height, ConvMatrix* m)
 {
 	// Avoid divide by zero errors

@@ -268,7 +268,7 @@ void ImageEffect::ApplyBasicEffect::ApplySphere()
 	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
 
 	Sphere(data, imgWidth, imgHeight, false);
-
+	
 	mImg->UnlockBits(bmData);
 }
 void ImageEffect::ApplyBasicEffect::ApplyTimeWarp()
@@ -328,6 +328,21 @@ void ImageEffect::ApplyBasicEffect::ApplyPixelate()
 	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
 
 	Pixelate(data, imgWidth, imgHeight, 15, false);
+
+	mImg->UnlockBits(bmData);
+}
+void ImageEffect::ApplyBasicEffect::ApplyFishEye()
+{
+	System::Drawing::Rectangle mRect(0, 0, imgWidth, imgHeight);
+	System::Drawing::Imaging::BitmapData^ bmData = mImg->LockBits(mRect,					
+		System::Drawing::Imaging::ImageLockMode::ReadWrite, 
+		System::Drawing::Imaging::PixelFormat::Format32bppArgb); 	
+
+	System::IntPtr Scan0 = bmData->Scan0; 
+
+	BMP_ARGB *data = (BMP_ARGB *)(void *)Scan0;
+
+	FishEye(data, imgWidth, imgHeight, 0.03, false, false);
 
 	mImg->UnlockBits(bmData);
 }

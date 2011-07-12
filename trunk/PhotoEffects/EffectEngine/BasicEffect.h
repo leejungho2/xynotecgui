@@ -89,6 +89,8 @@ void AFX_EXT_API Moire(BMP_ARGB *data, int width, int height, double fDegree);
 void AFX_EXT_API Water(BMP_ARGB *data, int width, int height, short nWave, bool bSmoothing);
 void AFX_EXT_API Pixelate(BMP_ARGB *data, int width, int height, short pixel, bool bGrid);
 
+//double m_iCurvature		value [0.001,0.1]
+void AFX_EXT_API FishEye(BMP_ARGB *data, int width, int height, double m_iCurvature, bool m_bInverse, bool bSmoothing);
 
 
 

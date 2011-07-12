@@ -47,6 +47,8 @@ namespace ImageEffect {
 			void ApplyMoire();
 			void ApplyWater();
 			void ApplyPixelate();
+
+			void ApplyFishEye();
 			
 		private:
 			System::Drawing::Bitmap^ mImg;

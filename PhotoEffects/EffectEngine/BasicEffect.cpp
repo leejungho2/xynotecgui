@@ -1117,3 +1117,98 @@ void Pixelate(BMP_ARGB *data, int width, int height, short pixel, bool bGrid)
 		delete[] pt[i];
 	delete[] pt;
 }
+
+void FishEye(BMP_ARGB *data, int width, int height, double m_iCurvature, bool m_bInverse, bool bSmoothing)
+{
+	FloatPoint** fp = new FloatPoint*[width];
+	IntPoint** pt = new IntPoint*[width];
+
+	for(int i = 0; i < width; i++)
+	{
+		fp[i] = new FloatPoint[height];
+		pt[i] = new IntPoint[height];
+	}
+
+	int			 i, j;								// cartesian coordinates
+	int			 x, y;								// converted cartesian coordinates
+
+	double		 r, a;								// polar coordinates (radius, angle)
+	
+	double		 m_width = width;
+	double		 m_height = height;
+	unsigned int R  = (min(m_width, m_height)) / 2; // maxium radius of polar coordinates
+
+	double		 w = m_iCurvature;					// curvature [0.001,0.1]
+	//   m_iCurvature will return [1,100]
+	double		 s = R / log(w*R+1);				// transformation coefficient
+	//   set according to largest radius
+	//   and curvature w
+
+	int w2 = m_width  / 2;
+	int h2 = m_height / 2;
+
+	//enum background {leave, white, black};
+	//int  backgroundtype = dlg.m_iBackground;
+	BOOL inverse = m_bInverse;
+
+	// for loops with origin in center of image
+	// [i,j] in terms of filtered image
+
+	for (i = -1*h2; i < ((int)m_height-h2); i++)
+	{
+		for (j = -1*w2; j < ((int)m_width-w2); j++)
+		{
+			// convert to polar
+			r = sqrt((double)(i*i + j*j));
+			a = atan2((float)i, j);		// calculates arctan(i/j)
+
+			// if we're inside R (i.e. inside the circle) do...
+			if (r <= R)
+			{
+				// make transformation using Basu and Licardie model [DEVE01]
+				if (!inverse)
+					r = (exp(r/s)-1)/w;
+				else
+					r = s * log(1+w*r);
+
+				// convert back to cartesian
+				x = int  (r * cos(a));
+				y = int  (r * sin(a));
+
+				// move origin back to bottom left
+				x += w2;
+				y += h2;
+
+				fp[j + w2][i + h2].X = x;
+				fp[j + w2][i + h2].Y = y;
+
+				pt[j + w2][i + h2].X = x;
+				pt[j + w2][i + h2].Y = y;
+			}
+
+			// if we're outside R, do not curve
+			else
+			{
+				fp[j + w2][i + h2].X = j + w2;
+				fp[j + w2][i + h2].Y = i + h2;
+
+				pt[j + w2][i + h2].X = j + w2;
+				pt[j + w2][i + h2].Y = i + h2;
+
+			}
+		}
+	}
+
+	if(bSmoothing)
+		OffsetFilterAbs(data, width, height, pt);
+	else
+		OffsetFilterAntiAlias(data, width, height, fp);
+
+	for(int i = 0; i < width; i++)
+	{
+		delete[] fp[i];
+		delete[] pt[i];
+	}
+	delete[] fp;
+	delete[] pt;
+}

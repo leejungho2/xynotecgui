@@ -51,7 +51,6 @@
             this.mnu_Convolution_EmbossLaplacian = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_Convolution_EdgeDetect = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_Convolution_Custom = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel_Canvas = new System.Windows.Forms.Panel();
             this.displacementFiltersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_DisplacementFilter_Flip = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_DisplacementFilter_RandomJitter = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,6 +60,8 @@
             this.mnu_DisplacementFilter_Moire = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_DisplacementFilter_Water = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu_DisplacementFilter_Pixelate = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel_Canvas = new System.Windows.Forms.Panel();
+            this.mnu_DisplacementFilter_FishEye = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -248,16 +249,6 @@
             this.mnu_Convolution_Custom.Text = "Custom";
             this.mnu_Convolution_Custom.Click += new System.EventHandler(this.menuMain_Click);
             // 
-            // panel_Canvas
-            // 
-            this.panel_Canvas.AutoScroll = true;
-            this.panel_Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_Canvas.Location = new System.Drawing.Point(0, 24);
-            this.panel_Canvas.Name = "panel_Canvas";
-            this.panel_Canvas.Size = new System.Drawing.Size(646, 360);
-            this.panel_Canvas.TabIndex = 1;
-            this.panel_Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Canvas_Paint);
-            // 
             // displacementFiltersToolStripMenuItem
             // 
             this.displacementFiltersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -268,7 +259,8 @@
             this.mnu_DisplacementFilter_TimeWarp,
             this.mnu_DisplacementFilter_Moire,
             this.mnu_DisplacementFilter_Water,
-            this.mnu_DisplacementFilter_Pixelate});
+            this.mnu_DisplacementFilter_Pixelate,
+            this.mnu_DisplacementFilter_FishEye});
             this.displacementFiltersToolStripMenuItem.Name = "displacementFiltersToolStripMenuItem";
             this.displacementFiltersToolStripMenuItem.Size = new System.Drawing.Size(114, 20);
             this.displacementFiltersToolStripMenuItem.Text = "Displacement Filters";
@@ -329,6 +321,23 @@
             this.mnu_DisplacementFilter_Pixelate.Text = "Pixelate";
             this.mnu_DisplacementFilter_Pixelate.Click += new System.EventHandler(this.menuMain_Click);
             // 
+            // panel_Canvas
+            // 
+            this.panel_Canvas.AutoScroll = true;
+            this.panel_Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_Canvas.Location = new System.Drawing.Point(0, 24);
+            this.panel_Canvas.Name = "panel_Canvas";
+            this.panel_Canvas.Size = new System.Drawing.Size(646, 360);
+            this.panel_Canvas.TabIndex = 1;
+            this.panel_Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Canvas_Paint);
+            // 
+            // mnu_DisplacementFilter_FishEye
+            // 
+            this.mnu_DisplacementFilter_FishEye.Name = "mnu_DisplacementFilter_FishEye";
+            this.mnu_DisplacementFilter_FishEye.Size = new System.Drawing.Size(152, 22);
+            this.mnu_DisplacementFilter_FishEye.Text = "Fish Eye";
+            this.mnu_DisplacementFilter_FishEye.Click += new System.EventHandler(this.menuMain_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +392,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Moire;
         private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Water;
         private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_Pixelate;
+        private System.Windows.Forms.ToolStripMenuItem mnu_DisplacementFilter_FishEye;
     }
 }
 

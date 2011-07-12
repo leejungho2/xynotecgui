@@ -127,6 +127,10 @@ namespace PhotoEffects
             {
                 DisplacementFilter_Pixelate();
             }
+            else if (sender == mnu_DisplacementFilter_FishEye)
+            {
+                DisplacementFilter_FishEye();
+            }
         }
 
 #region MenuItem Event
@@ -405,6 +409,17 @@ namespace PhotoEffects
             basicEffect.ApplyPixelate();
 
             this.panel_Canvas.Invalidate();
+        }
+        
+        private void DisplacementFilter_FishEye()
+        {
+            m_Undo = (Bitmap)m_Bitmap.Clone();
+
+            basicEffect.SetImage(m_Bitmap);
+            basicEffect.ApplyFishEye();
+
+            this.panel_Canvas.Invalidate();
+
         }
 
 #endregion
